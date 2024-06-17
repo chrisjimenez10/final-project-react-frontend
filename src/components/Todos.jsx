@@ -1,11 +1,13 @@
 //Import
 import { fetchTodos, createTodo, editTodo, deleteTodo } from "../services/todosService";
 import { useState, useEffect } from "react";
+import Form from "./Form";
 
 const Todos = () => {
 
 //State
 const [todos, setTodos] = useState([]);
+const [todoToEdit, setTodoToEdit] = useState(null);
 
 //Functions
 const fetchTodosDatabase = async () => {
@@ -36,6 +38,10 @@ const handleEditTodo = async (id, todoData) => {
   }
 };
 
+const handleEdit = (todoData) => {
+  setTodoToEdit(todoData);
+};
+
 const handleDeleteTodo = async (id) => {
   try{
     await deleteTodo(id);
@@ -60,11 +66,19 @@ const handleDeleteTodo = async (id) => {
             <li key={todo.id}>
               <dd>Task: {todo.name}</dd>
               <dd>Description: {todo.description}</dd>
-              
+              <button>+</button>
+              <button onClick={()=> handleDeleteTodo(todo.id)}>-</button>
+              <button onClick={()=> handleEdit(todo)}>edit</button>
             </li>
           )
         })}
       </ul>
+
+      <Form 
+        handleCreateTodo={handleCreateTodo}
+        todoToEdit={todoToEdit}
+        setTodoToEdit={setTodoToEdit}      
+      />
 
     </>
 
