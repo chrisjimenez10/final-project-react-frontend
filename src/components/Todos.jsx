@@ -77,7 +77,8 @@ const handleDeleteTodo = async (id) => {
       <Form 
         handleCreateTodo={handleCreateTodo}
         todoToEdit={todoToEdit}
-        setTodoToEdit={setTodoToEdit}      
+        setTodoToEdit={setTodoToEdit}
+        handleEditTodo={handleEditTodo}      
       />
 
     </>

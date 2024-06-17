@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 
-const Form = ({handleCreateTodo, todoToEdit, setTodoToEdit}) => {
+const Form = ({handleCreateTodo, todoToEdit, setTodoToEdit, handleEditTodo}) => {
 
     //State
     const [formData, setFormData] = useState({
@@ -27,11 +27,16 @@ const Form = ({handleCreateTodo, todoToEdit, setTodoToEdit}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleCreateTodo(formData);
+        if(todoToEdit){
+            handleEditTodo(todoToEdit.id, formData)
+        }else{
+            handleCreateTodo(formData);
+        }
         setFormData({
             name: "",
             description: ""
         });
+        setTodoToEdit(null);
     };
 
   return (
@@ -43,9 +48,9 @@ const Form = ({handleCreateTodo, todoToEdit, setTodoToEdit}) => {
 
 
     <label htmlFor="description">Description: </label>
-    <input id="description" name="description" type="text" required value={formData.description} onChange={handleInputChange}></input>
+    <textarea id="description" name="description" type="text" required value={formData.description} onChange={handleInputChange}></textarea>
 
-    <button type="submit" disabled={formData.name === "" || formData.description === ""}>Add</button>
+    <button type="submit" disabled={formData.name === "" || formData.description === ""}>{todoToEdit ? "Edit" : "Add"}</button>
 
 </form>
 
