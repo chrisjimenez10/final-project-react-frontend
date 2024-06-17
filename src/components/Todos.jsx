@@ -1,5 +1,5 @@
 //Import
-import { fetchTodos } from "../services/todosService";
+import { fetchTodos, createTodo, editTodo, deleteTodo } from "../services/todosService";
 import { useState, useEffect } from "react";
 
 const Todos = () => {
@@ -15,6 +15,34 @@ try{
 }catch(error){
     console.error(error.message);
 }
+};
+
+//CRUD
+const handleCreateTodo = async (todoData) => {
+  try{
+    await createTodo(todoData);
+    fetchTodosDatabase();
+  }catch(error){
+    console.error(error.message)
+  }
+};
+
+const handleEditTodo = async (id, todoData) => {
+  try{
+    await editTodo(id, todoData);
+    fetchTodosDatabase();
+  }catch(error){
+    console.error(error.message)
+  }
+};
+
+const handleDeleteTodo = async (id) => {
+  try{
+    await deleteTodo(id);
+    fetchTodosDatabase();
+  }catch(error){
+    console.error(error.message)
+  }
 };
 
   useEffect(()=>{
