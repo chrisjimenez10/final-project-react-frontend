@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Form = ({handleCreateTodo, todoToEdit, setTodoToEdit, handleEditTodo}) => {
+
+    const navigate = useNavigate();
 
     //State
     const [formData, setFormData] = useState({
@@ -28,7 +31,8 @@ const Form = ({handleCreateTodo, todoToEdit, setTodoToEdit, handleEditTodo}) => 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(todoToEdit){
-            handleEditTodo(todoToEdit.id, formData)
+            handleEditTodo(todoToEdit.id, formData);
+            navigate("/backlog");
         }else{
             handleCreateTodo(formData);
         }
@@ -43,7 +47,7 @@ const Form = ({handleCreateTodo, todoToEdit, setTodoToEdit, handleEditTodo}) => 
 
     <form onSubmit={handleSubmit}>
 
-    <label htmlFor="name">Name: </label>
+    <label htmlFor="name">Task: </label>
     <input id="name" name="name" type="text" required value={formData.name} onChange={handleInputChange}></input>
 
 
