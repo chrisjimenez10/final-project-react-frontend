@@ -8,8 +8,9 @@ import Form from "./Form";
 
 const Backlog = () => {
 
-  const {todos, fetchTodosDatabase} = useContext(TodosContext);
+  const {todos, fetchTodosDatabase, addToSelectedTodos, selectedTodos} = useContext(TodosContext);
 
+  console.log(selectedTodos)
   const navigate = useNavigate();
 
 //State
@@ -53,15 +54,14 @@ const handleCreateTodo = async (todoData) => {
           return(
             <li key={todo.id}>
               <dd>Task: {todo.name}</dd>
-              <dd>Description: {todo.description}</dd>
-              <button>+</button>
+              <button onClick={()=> addToSelectedTodos(todo)}>+</button>
               <button onClick={()=> handleNavigate(todo.id)}>view</button>
             </li>
           )
         })}
       </ul>
 
-      <button onClick={handleRenderForm}>Task</button>
+      <button onClick={handleRenderForm}>Create</button>
       {renderForm === "form" && (
               <Form 
               handleCreateTodo={handleCreateTodo}   

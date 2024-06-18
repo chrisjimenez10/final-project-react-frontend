@@ -12,6 +12,7 @@ export const TodosContext = createContext(null);
 const App = () => {
   //State
   const [todos, setTodos] = useState([]);
+  const [selectedTodos, setSelectedTodos] = useState([]);
 
 
   //Functions
@@ -23,12 +24,20 @@ const App = () => {
         console.error(error.message);
     }
     };
+  
+  const addToSelectedTodos = (todo) => {
+    setSelectedTodos([...selectedTodos, todo]);
+  };
+
+  const removeSelectedTodos = (todoId) => {
+    setSelectedTodos(selectedTodos.filter((item, index)=>{return index !== todoId}));
+  };
 
 
   return (
 
       <main>
-      <TodosContext.Provider value={{todos, fetchTodosDatabase}}>
+      <TodosContext.Provider value={{todos, fetchTodosDatabase, addToSelectedTodos, selectedTodos, removeSelectedTodos}}>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}>Home</Route>
