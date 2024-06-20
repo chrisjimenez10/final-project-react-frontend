@@ -11,7 +11,7 @@ const Details = () => {
     const [todoToEdit, setTodoToEdit] = useState(null);
     const [renderForm, setRenderForm] = useState("");
 
-    
+
     const navigate = useNavigate();
 
     const {todos, fetchTodosDatabase} = useContext(TodosContext);
